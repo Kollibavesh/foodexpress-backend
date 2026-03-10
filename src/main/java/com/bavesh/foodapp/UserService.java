@@ -24,6 +24,11 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
+        // ensure role is never null
+        if (user.getRole() == null) {
+            user.setRole(Role.USER);
+        }
+
         User savedUser = userRepository.save(user);
 
         return new UserResponse(
